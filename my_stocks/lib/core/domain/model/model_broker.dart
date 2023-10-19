@@ -27,16 +27,6 @@ class ModelBroker {
   }
 
   factory ModelBroker.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      return ModelBroker(
-        name: '',
-        format: [],
-        last: 0.0,
-        buy: 0.0,
-        sell: 0.0,
-        variation: 0.0,
-      );
-    }
     return ModelBroker(
       name: map["name"] ?? '',
       format: List<String>.from(map["format"].map((x) => x)),
@@ -49,5 +39,6 @@ class ModelBroker {
 
   String toJson() => toMap().toString();
 
-  factory ModelBroker.fromJson(Map<String, dynamic> map) => ModelBroker.fromMap(map);
+  factory ModelBroker.fromJson(Map<String, dynamic> map) =>
+      ModelBroker.fromMap(map);
 }

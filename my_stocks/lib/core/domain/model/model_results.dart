@@ -30,16 +30,6 @@ class ModelResults {
   }
 
   factory ModelResults.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      return ModelResults(
-        currencies: ModelCurrencies.fromMap({}),
-        stocks: ModelStocks.fromMap({}),
-        availableSources: [],
-        bitcoin: ModelBitcoin.fromMap({}),
-        taxes: [],
-      );
-    }
-
     return ModelResults(
       currencies: ModelCurrencies.fromMap(map['currencies']),
       stocks: ModelStocks.fromMap(map['stocks']),

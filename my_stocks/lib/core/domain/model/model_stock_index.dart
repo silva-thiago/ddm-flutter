@@ -20,15 +20,6 @@ class ModelStockIndex {
   }
 
   factory ModelStockIndex.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      return ModelStockIndex(
-        name: '',
-        location: '',
-        points: 0.0,
-        variation: 0.0,
-      );
-    }
-
     return ModelStockIndex(
       name: map['name'] ?? '',
       location: map['location'] ?? '',

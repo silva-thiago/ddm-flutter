@@ -30,17 +30,6 @@ class ModelStocks {
   }
 
   factory ModelStocks.fromJson(Map<String, dynamic> map) {
-    if (map == null) {
-      return ModelStocks(
-        ibovespa: ModelStockIndex.fromMap({}),
-        ifix: ModelStockIndex.fromMap({}),
-        nasdaq: ModelStockIndex.fromMap({}),
-        dowjones: ModelStockIndex.fromMap({}),
-        cac: ModelStockIndex.fromMap({}),
-        nikkei: ModelStockIndex.fromMap({}),
-      );
-    }
-
     return ModelStocks(
       ibovespa: ModelStockIndex.fromMap(map['IBOVESPA']),
       ifix: ModelStockIndex.fromMap(map['IFIX']),

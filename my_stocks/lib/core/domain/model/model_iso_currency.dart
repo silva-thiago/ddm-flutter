@@ -22,15 +22,6 @@ class ModelISOCurrency {
   }
 
   factory ModelISOCurrency.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      return ModelISOCurrency(
-        name: '',
-        buy: 0.0,
-        sell: 0.0,
-        variation: 0.0,
-      );
-    }
-
     return ModelISOCurrency(
       name: map['name'] ?? '',
       buy: map['buy'] * 1.0 ?? '',

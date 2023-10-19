@@ -42,21 +42,6 @@ class ModelCurrencies {
   }
 
   factory ModelCurrencies.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      return ModelCurrencies(
-        source: '',
-        USD: ModelISOCurrency.fromMap({}),
-        EUR: ModelISOCurrency.fromMap({}),
-        GBP: ModelISOCurrency.fromMap({}),
-        ARS: ModelISOCurrency.fromMap({}),
-        CAD: ModelISOCurrency.fromMap({}),
-        AUD: ModelISOCurrency.fromMap({}),
-        JPY: ModelISOCurrency.fromMap({}),
-        CNY: ModelISOCurrency.fromMap({}),
-        BTC: ModelISOCurrency.fromMap({}),
-      );
-    }
-
     return ModelCurrencies(
       source: map['source'] ?? '',
       USD: ModelISOCurrency.fromMap(map['USD']),

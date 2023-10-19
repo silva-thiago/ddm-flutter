@@ -27,16 +27,6 @@ class ModelFinance {
   }
 
   factory ModelFinance.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      return ModelFinance(
-        by: '',
-        validKey: false,
-        results: ModelResults.fromMap({}),
-        executionTime: 0,
-        fromCache: false,
-      );
-    }
-
     return ModelFinance(
       by: map['by'] ?? '',
       validKey: map['valid_key'] ?? false,
@@ -48,5 +38,6 @@ class ModelFinance {
 
   String toJson() => json.encode(toMap());
 
-  factory ModelFinance.fromJson(String source) => ModelFinance.fromMap(json.decode(source));
+  factory ModelFinance.fromJson(String source) =>
+      ModelFinance.fromMap(json.decode(source));
 }

@@ -26,16 +26,6 @@ class ModelBitcoin {
   }
 
   factory ModelBitcoin.fromJson(Map<String, dynamic> map) {
-    if (map == null) {
-      return ModelBitcoin(
-        blockchainInfo: ModelBroker.fromMap({}),
-        coinbase: ModelBroker.fromMap({}),
-        bitstamp: ModelBroker.fromMap({}),
-        foxbit: ModelBroker.fromMap({}),
-        mercadobitcoin: ModelBroker.fromMap({}),
-      );
-    }
-
     return ModelBitcoin(
       blockchainInfo: ModelBroker.fromMap(map["blockchain_info"]),
       coinbase: ModelBroker.fromMap(map["coinbase"]),
