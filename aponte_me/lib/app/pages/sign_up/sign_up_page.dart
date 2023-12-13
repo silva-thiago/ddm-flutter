@@ -1,5 +1,5 @@
+import 'package:aponte_me/app/pages/feedback/success_page.dart';
 import 'package:aponte_me/app/pages/sing_in/sign_in_page.dart';
-import 'package:aponte_me/app/pages/success/success_page.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {

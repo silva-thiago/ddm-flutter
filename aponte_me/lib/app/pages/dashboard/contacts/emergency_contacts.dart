@@ -65,8 +65,6 @@ class _EmergencyContactsPageState extends State<EmergencyContactsPage> {
           child: ListView(
             children: const [
               CardEmergencyContact(),
-              CardEmergencyContact(),
-              CardEmergencyContact(),
             ],
           ),
         ),

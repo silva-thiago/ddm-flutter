@@ -1,6 +1,9 @@
-import 'package:aponte_me/app/pages/dashboard/dashboard_page.dart';
 import 'package:aponte_me/app/pages/password/password_recovery.dart';
 import 'package:aponte_me/app/pages/sign_up/sign_up_page.dart';
+import 'package:aponte_me/src/features/auth/interactor/atoms/atom_auth.dart';
+import 'package:aponte_me/src/features/auth/interactor/dtos/dto_email_credential.dart';
+import 'package:aponte_me/src/features/auth/interactor/states/state_auth.dart';
+import 'package:asp/asp.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatefulWidget {
@@ -19,8 +22,13 @@ class _SignInPageState extends State<SignInPage> {
   bool aceitarTermoPolitica = false;
   bool _obscureTextPassword = true;
 
+  var dto = DTOEmailCredential();
+
   @override
   Widget build(BuildContext context) {
+    final state = context.select(() => stateAuth.value);
+    final loading = state is LoadingAuth;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -98,6 +106,10 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                           ),
                         ),
+                        enabled: !loading,
+                        onChanged: (value) {
+                          dto.email = value;
+                        },
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'Por favor, informe seu e-mail';
@@ -137,6 +149,10 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                           ),
                         ),
+                        enabled: !loading,
+                        onChanged: (value) {
+                          dto.password = value;
+                        },
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'Por favor, informe sua senha';
@@ -146,18 +162,13 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       const SizedBox(height: 16.0),
                       FilledButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            // Process data.
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DashboardPage(),
-                              ),
-                            );
-                          }
-                        },
-                        // style: primaryButtonStyle,
+                        onPressed: loading
+                            ? null
+                            : () async {
+                                if (_formKey.currentState!.validate()) {
+                                  loginWithEmailAction.value = dto;
+                                }
+                              },
                         child: Text(
                           'Entrar'.toUpperCase(),
                         ),

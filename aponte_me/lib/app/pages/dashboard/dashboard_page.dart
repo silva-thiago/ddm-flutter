@@ -5,7 +5,7 @@ import 'package:aponte_me/app/pages/dashboard/tags/qrcode_tags.dart';
 import 'package:aponte_me/app/pages/dashboard/user/create_user_personal_data.dart';
 import 'package:aponte_me/app/pages/dashboard/user/update_user_personal_data.dart';
 import 'package:aponte_me/app/pages/dashboard/user/user_personal_data.dart';
-import 'package:aponte_me/app/pages/sing_in/sign_in_page.dart';
+import 'package:aponte_me/src/features/auth/interactor/atoms/atom_auth.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -175,12 +175,8 @@ class _DashboardPage extends State<DashboardPage> {
           iconSize: 20.0,
           tooltip: 'Sair',
           onPressed: () {
-            Navigator.pop(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SignInPage(),
-              ),
-            );
+            Navigator.pop(context);
+            logoutAction();
           },
         ),
       ],
@@ -237,12 +233,8 @@ class _DashboardPage extends State<DashboardPage> {
           iconSize: 20.0,
           tooltip: 'Sair',
           onPressed: () {
-            Navigator.pop(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SignInPage(),
-              ),
-            );
+            Navigator.pop(context);
+            logoutAction();
           },
         ),
       ],
@@ -282,12 +274,8 @@ class _DashboardPage extends State<DashboardPage> {
           iconSize: 20.0,
           tooltip: 'Sair',
           onPressed: () {
-            Navigator.pop(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SignInPage(),
-              ),
-            );
+            Navigator.pop(context);
+            logoutAction();
           },
         ),
       ],
@@ -310,12 +298,8 @@ class _DashboardPage extends State<DashboardPage> {
           iconSize: 20.0,
           tooltip: 'Sair',
           onPressed: () {
-            Navigator.pop(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SignInPage(),
-              ),
-            );
+            Navigator.pop(context);
+            logoutAction();
           },
         ),
       ],

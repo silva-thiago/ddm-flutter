@@ -1,8 +1,11 @@
-import 'package:aponte_me/app/pages/onboarding/onboarding_page.dart';
-import 'package:aponte_me/app/pages/sing_in/sign_in_page.dart';
-import 'package:aponte_me/theme/dynamic_color_schemes.g.dart';
+import 'package:aponte_me/app/app_widget.dart';
+import 'package:aponte_me/firebase_options.dart';
+import 'package:aponte_me/src/features/modules/app_module.dart';
+import 'package:asp/asp.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,6 +23,10 @@ class ProviderTheme extends ChangeNotifier {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
     overlays: [
@@ -32,113 +39,23 @@ void main() async {
   seenOnboard = preferences.getBool('seenOnboard') ?? false;
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => ProviderTheme(),
+    RxRoot(
+      child: ModularApp(
+        module: AppModule(),
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => ProviderTheme(),
+            ),
+          ],
+          builder: (context, child) {
+            /*Modular.get<ProviderTheme>().activateDarkMode =
+                preferences.getBool('activateDarkMode') ?? false;*/
+            Modular.setInitialRoute(seenOnboard == true ? '/' : '/sign-in');
+            return const AppWidget();
+          },
         ),
-        /*ChangeNotifierProvider(
-          create: (_) => ProviderContactEmergency(),
-        ),*/
-      ],
-      builder: (context, child) {
-        return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'AponteMe',
-            theme: ThemeData(
-              useMaterial3: true,
-              colorScheme: lightColorScheme,
-              scrollbarTheme: ScrollbarThemeData(
-                thumbColor: MaterialStateProperty.all<Color>(
-                  lightColorScheme.primary,
-                ),
-              ),
-              elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: lightColorScheme.primary,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    inherit: false,
-                  ),
-                ),
-              ),
-              filledButtonTheme: FilledButtonThemeData(
-                style: FilledButton.styleFrom(
-                  foregroundColor: lightColorScheme.onPrimary,
-                  backgroundColor: lightColorScheme.primary,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    inherit: false,
-                  ),
-                ),
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  foregroundColor: lightColorScheme.primary,
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    inherit: false,
-                  ),
-                ),
-              ),
-            ),
-            darkTheme: ThemeData(
-              useMaterial3: true,
-              colorScheme: darkColorScheme,
-              scrollbarTheme: ScrollbarThemeData(
-                thumbColor: MaterialStateProperty.all<Color>(
-                  darkColorScheme.primary,
-                ),
-              ),
-              elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: darkColorScheme.primary,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    inherit: false,
-                  ),
-                ),
-              ),
-              filledButtonTheme: FilledButtonThemeData(
-                style: FilledButton.styleFrom(
-                  foregroundColor: darkColorScheme.onPrimary,
-                  backgroundColor: darkColorScheme.primary,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    inherit: false,
-                  ),
-                ),
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  foregroundColor: darkColorScheme.primary,
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    inherit: false,
-                  ),
-                ),
-              ),
-            ),
-            home: seenOnboard == true
-                ? const SignInPage()
-                : const OnboardingPage());
-      },
+      ),
     ),
   );
 }
